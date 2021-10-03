@@ -3,18 +3,22 @@
 
 
 def bubble_sort(array)
-  for i in 0...array.length
-    sorted = true
-
-    for k in 0...(array.length - i - 1)
-      if array[k] > array [k + 1]
-        array[k], array[k + 1] = array[k + 1], array[k]
-        sorted = false
+  n = array.length
+  loop do 
+    sorted = false
+    (n-1).times do |i|
+      if array[i] > array[i+1]
+        array[i], array[i+1] = array[i+1], array[i]
+        sorted = true
       end
     end
-    break if sorted
+    break if not sorted
   end
   return array
 end
 
+
 arr = [4,3,78,2,0,2]
+bubble_sort(arr)
+
+#=> [0, 2, 2, 3, 4, 78]
