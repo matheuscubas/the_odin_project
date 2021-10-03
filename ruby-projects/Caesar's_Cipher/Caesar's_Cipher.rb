@@ -1,7 +1,4 @@
 def caesars_cipher(string, number)
-  capital_letters_range = (65..90).to_a
-  letters_range = (97..122).to_a
-
   shift_factor = number.abs
   message = string.bytes
   shifted = []
