@@ -1,10 +1,15 @@
 class Board
   TTT_BOARD = Array.new(9, '') { |i| i + 1 }
-  WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8],[6,4,2]]
+  WIN_COMBINATIONS = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8],[2,4,6]]
 
-  attr_accessor :board
+  attr_accessor :board, :p1_combos, :p2_combos, :p1_moves, :p2_moves
   def initialize
     @board = TTT_BOARD
+    @p1_moves = []
+    @p1_combos = []
+    @p2_moves = []
+    @p2_combos = []
+    @win_combo = WIN_COMBINATIONS
   end
 
   def print_game_board
@@ -21,8 +26,34 @@ class Board
     position.between?(1, 9) && board[position - 1].is_a?(Integer)
   end
 
-  def draw?(_board)
+  def draw?(board)
     @board.any?(Integer)
+  end
+
+  def p1_moves(position)
+    @p1_moves << (position - 1)
+    @p1_combos = @p1_moves.combination(3).to_a
+  end
+
+  def p2_moves(position)
+    @p2_moves << (position - 1)
+    @p2_combos = @p2_moves.combination(3).to_a
+  end
+
+  def p1_won?
+    @p1_combos.each do |combo|
+      if @win_combo.include?(combo)
+        return = true
+      end
+    end
+  end
+
+  def p2_won?
+    @p2_combos.each do |combo|
+      if @win_combo.any?(combo)
+        return true
+      end
+    end
   end
 end
 
@@ -46,8 +77,10 @@ puts "Now please insert player number two's name: "
 p2.name = gets.chomp
 puts "All set #{p1.name} and #{p2.name} enjoy the game!"
 board.print_game_board
-puts "Each player must select a position inside the board, and try to make a straight line to win. \n none of the players are allowed to overtake the other player position"
+puts "Each player must select a position inside the board, and try to make a straight line to win. \nnone of the players are allowed to overtake the other player position"
+
 while game_over == false
+  p "game over is #{game_over}"
   if board.draw?(board) == false
     puts "It's a Draw!"
     game_over = true
@@ -59,8 +92,14 @@ while game_over == false
     puts "Please #{p1.name} select another position"
     position = gets.chomp.to_i
   end
+  board.p1_moves(position)
   board.add_move(position, 'X')
   board.print_game_board
+  if board.p1_won? == true
+    puts "Congratulations #{p1.name} you are the winner!"
+    game_over = true
+    break
+  end
   if board.draw?(board) == false
     puts "It's a Draw!"
     game_over = true
@@ -72,40 +111,12 @@ while game_over == false
     puts "Please #{p2.name} select another position"
     position = gets.chomp.to_i
   end
+  board.p2_moves(position)
   board.add_move(position, 'O')
   board.print_game_board
-end
-
-=begin
-def p1_moves(position)
- p1_moves_combination = [] << position
- p1_combos = p1_moves_combination.combination(3).to_a
-end
-
-def p2_moves(position)
-   p2_moves_combination = [] << position
-   p2_combos = p1_moves_combination.combination(3).to_a
-end
-
-def p1_win?
-  winner_combo = WIN_COMBINATIONS
-  winner_combo.each do |combo|
-    if p1_combos.any?(combo)
-      true
-    else
-      false
-    end
+  if board.p2_won? == true
+    game_over = true
+    p "Congratulations #{p2.name} you are the winner!"
+    break
   end
 end
-
-def p2_win?
-  winner_combo = WIN_COMBINATIONS
-  winner_combo.each do |combo|
-    if p2_combos.any?(combo)
-      true
-    else
-      false
-    end
-  end
-end
-=end
