@@ -43,7 +43,7 @@ class Board
   def p1_won?
     @p1_combos.each do |combo|
       if @win_combo.include?(combo)
-        return = true
+        return true
       end
     end
   end
@@ -80,7 +80,6 @@ board.print_game_board
 puts "Each player must select a position inside the board, and try to make a straight line to win. \nnone of the players are allowed to overtake the other player position"
 
 while game_over == false
-  p "game over is #{game_over}"
   if board.draw?(board) == false
     puts "It's a Draw!"
     game_over = true
