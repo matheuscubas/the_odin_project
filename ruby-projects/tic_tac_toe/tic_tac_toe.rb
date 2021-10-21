@@ -42,7 +42,9 @@ class Board
 
   def p1_won?
     @p1_combos.each do |combo|
-      if @win_combo.include?(combo)
+      p combo
+      if @win_combo.sort.any?(combo.sort)
+        p true
         return true
       end
     end
@@ -50,7 +52,7 @@ class Board
 
   def p2_won?
     @p2_combos.each do |combo|
-      if @win_combo.any?(combo)
+      if @win_combo.sort.any?(combo.sort)
         return true
       end
     end
