@@ -1,0 +1,10 @@
+<h1>Posts#index</h1>
+<% @posts.each do |post| %>
+  <div>
+    <p> title: <%= post.title %> </p><br>
+    <p> user: <%= post.user.email if current_user %> </p><br>
+    <p> body: <%= post.body %> </p><br>
+  </div>
+<% end %>
+
+<%= link_to 'New', new_post_path %>

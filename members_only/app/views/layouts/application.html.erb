@@ -10,7 +10,16 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
+  <body class='container'>
+    <nav>
+     <% unless current_user %>
+        <%= link_to 'Login', new_user_session_path %>
+        <%= link_to 'Sign up', new_user_password_path %>
+     <% end %>
+     <% if current_user %>
+      <%= link_to('Sign out', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }) %>
+     <% end %>
+    </nav>
     <%= render 'layouts/flash' %>
     <%= yield %>
   </body>
