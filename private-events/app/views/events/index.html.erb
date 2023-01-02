@@ -1,0 +1,11 @@
+<h1>Events:</h1>
+
+<% @events.each do |event| %>
+  <%= event.title %><br>
+  <%= event.creator.username %><br>
+  <%= event.description %><br>
+  <%= event.date %><br>
+  --------------------------<br>
+<% end %><br>
+
+<%= link_to 'Add event', new_event_path %>
