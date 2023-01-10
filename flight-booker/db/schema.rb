@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 20_230_109_202_747) do
     t.integer 'departure_aiport_id', null: false
     t.integer 'destination_aiport_id', null: false
     t.integer 'capacity'
-    t.time 'duration'
+    t.integer 'duration'
     t.datetime 'departure_time'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
