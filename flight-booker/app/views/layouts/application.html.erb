@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme='halloween'>
   <head>
     <title>FlightBooker</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <%= render 'layouts/navbar' %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
