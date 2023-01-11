@@ -3,9 +3,9 @@
   <span>
   <%= form_with url: root_path, method: :get do |f| %>
     <%= f.label 'From:', class: 'label' %>
-    <%= f.select :departure_airport, Airport.all.pluck(:code), {}, class: 'select select-primary w-full max-w-xs' %><br>
+    <%= f.collection_select  :departure_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
     <%= f.label 'To:', class: 'label' %>
-    <%= f.select :destination_airport, Airport.all.pluck(:code), {}, class: 'select select-primary w-full max-w-xs' %><br>
+    <%= f.collection_select  :destination_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
     <%= f.label 'Number of seats', class: 'label' %>
     <%= f.select :number_of_seats, 1..4, {}, class: 'select select-primary w-full max-w-xs' %><br>
     <%= f.label 'Departure time:', class: 'label' %>
@@ -14,19 +14,21 @@
   <% end %>
   </span>
 
-  <% @flights.each do |flight| %>
-    <div class="card w-96 bg-base-100 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title">Flight: <%= flight.departure_airport.code %> > <%= flight.destination_airport.code %></h2>
-        <p>Duration: <%= flight.duration %> minutes</p>
-        <p>Capacity: <%= flight.capacity %> clients</p>
-        <p>Vacancy: <%= flight.capacity - flight.users.size %> seats available</p>
-        <p><b>Departure time:</b> <%= flight.departure_time.strftime("%Y-%m-%d %H:%M:%S") %></p>
-        <p>Departuring in: <%= distance_of_time_in_words(Time.now, flight.departure_time) %>, from now</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
+  <% unless @flights.empty? %>
+    <% @flights.each do |flight| %>
+      <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Flight: <%= flight.departure_airport.code %> > <%= flight.destination_airport.code %></h2>
+          <p>Duration: <%= flight.duration %> minutes</p>
+          <p>Capacity: <%= flight.capacity %> clients</p>
+          <p>Vacancy: <%= flight.capacity - flight.users.size %> seats available</p>
+          <p><b>Departure time:</b> <%= flight.departure_time.strftime("%Y-%m-%d %H:%M:%S") %></p>
+          <p>Departuring in: <%= distance_of_time_in_words(Time.now, flight.departure_time) %>, from now</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">Buy Now</button>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

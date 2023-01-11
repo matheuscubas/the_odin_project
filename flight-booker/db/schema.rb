@@ -20,15 +20,15 @@ ActiveRecord::Schema[7.0].define(version: 20_230_109_202_747) do
   end
 
   create_table 'flights', force: :cascade do |t|
-    t.integer 'departure_aiport_id', null: false
-    t.integer 'destination_aiport_id', null: false
+    t.integer 'departure_airport_id', null: false
+    t.integer 'destination_airport_id', null: false
     t.integer 'capacity'
     t.integer 'duration'
     t.datetime 'departure_time'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.index ['departure_aiport_id'], name: 'index_flights_on_departure_aiport_id'
-    t.index ['destination_aiport_id'], name: 'index_flights_on_destination_aiport_id'
+    t.index ['departure_airport_id'], name: 'index_flights_on_departure_airport_id'
+    t.index ['destination_airport_id'], name: 'index_flights_on_destination_airport_id'
   end
 
   create_table 'flights_users', id: false, force: :cascade do |t|
@@ -48,6 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 20_230_109_202_747) do
     t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
-  add_foreign_key 'flights', 'airports', column: 'departure_aiport_id'
-  add_foreign_key 'flights', 'airports', column: 'destination_aiport_id'
+  add_foreign_key 'flights', 'airports', column: 'departure_airport_id'
+  add_foreign_key 'flights', 'airports', column: 'destination_airport_id'
 end
