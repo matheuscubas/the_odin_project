@@ -1,20 +1,23 @@
 <div>
-  <h1 class="font-bold text-4xl">Flitghs</h1><br>
-  <span>
-  <%= form_with url: root_path, method: :get do |f| %>
-    <%= f.label 'From:', class: 'label' %>
-    <%= f.collection_select  :departure_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
-    <%= f.label 'To:', class: 'label' %>
-    <%= f.collection_select  :destination_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
-    <%= f.label 'Number of seats', class: 'label' %>
-    <%= f.select :number_of_seats, 1..4, {}, class: 'select select-primary w-full max-w-xs' %><br>
-    <%= f.label 'Departure time:', class: 'label' %>
-    <%= f.select :departure_time, Flight.order(:departure_time).pluck(:departure_time), {}, class: 'select select-primary w-full max-w-xs' %><br><br>
-    <%= f.submit 'Search', class: 'btn btn-primary' %>
-  <% end %>
-  </span>
+  <h1 class="font-bold text-4xl">Flitghs</h1>
+</div>
+<div class='flex justify-between items-center pt-20'>
+  <div>
+    <%= form_with url: root_path, method: :get do |f| %>
+      <%= f.label 'From:', class: 'label' %>
+      <%= f.collection_select  :departure_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
+      <%= f.label 'To:', class: 'label' %>
+      <%= f.collection_select  :destination_airport_id, Airport.all, :id, :code, {}, class: 'select select-primary w-full max-w-xs' %><br>
+      <%= f.label 'Number of seats', class: 'label' %>
+      <%= f.select :number_of_seats, 1..4, {}, class: 'select select-primary w-full max-w-xs' %><br>
+      <%= f.label 'Departure time:', class: 'label' %>
+      <%= f.select :departure_time, Flight.order(:departure_time).pluck(:departure_time), {}, class: 'select select-primary w-full max-w-xs' %><br><br>
+      <%= f.submit 'Search', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
 
   <% unless @flights.empty? %>
+  <div class='mx-2.5'>
     <% @flights.each do |flight| %>
       <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
@@ -30,5 +33,6 @@
         </div>
       </div>
     <% end %>
+  </div>
   <% end %>
 </div>
